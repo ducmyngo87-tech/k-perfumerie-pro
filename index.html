@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+  <html lang="ru">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+      <title>K-Perfumerie PRO</title>
+      <link rel="manifest" href="manifest.json">
+      <meta name="theme-color" content="#121212">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      <link rel="stylesheet" href="style.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+      <div class="app-container">
+          <!-- Header -->
+          <header class="main-header">
+              <div class="header-left">
+                  <div class="logo">
+                      <span class="logo-k">K</span>
+                      <span class="logo-text">PERFUMERIE<span class="pro-badge">PRO</span></span>
+                  </div>
+              </div>            <div class="header-right">
+                  <button id="updateDbBtn" class="header-icon-btn" title="Update DB">
+                      <i class="fa-solid fa-cloud-arrow-down"></i>
+                  </button>
+                  <button id="favHeaderBtn" class="header-icon-btn" title="Favorites">
+                      <i class="fa-regular fa-heart"></i>
+                      <span id="favCount" class="badge-count" style="display:none">0</span>
+                  </button>
+              </div>
+          </header>
+
+          <!-- Search & Filter Area -->
+          <div class="filter-section">
+              <div class="search-wrapper">
+                  <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                  <input type="text" id="searchInput" placeholder="Search..." autocomplete="off">
+                  <button id="clearSearch" class="clear-btn" style="display:none">
+                      <i class="fa-solid fa-circle-xmark"></i>
+                  </button>
+              </div>
+
+              <div id="filtersScroll" class="filters-scroll">
+                  <div class="filter-group">
+                      <button class="filter-btn active" data-filter="all">All</button>
+                      <button class="filter-btn" data-filter="Floral">Floral</button>
+                      <button class="filter-btn" data-filter="Oriental">Oriental</button>
+                    <button class="filter-btn" data-filter="Woody">Woody</button>
+                      <button class="filter-btn" data-filter="Citrus">Citrus</button>
+                      <button class="filter-btn" data-filter="Gourmand">Gourmand</button>
+                      <button class="filter-btn" data-filter="Chypre">Chypre</button>
+                      <button class="filter-btn" data-filter="Fougere">Fougere</button>
+                      <button class="filter-btn" data-filter="Aquatic">Aquatic</button>
+                  </div>
+              </div>
+
+              <div id="genderNav" class="gender-nav">
+                  <button class="gender-btn active" data-gender="all">All</button>
+                  <button class="gender-btn"                <button class="gender-btn" data-gender="Female"><i class="fa-solid fa-venus"></i> Female</button>
+                  <button class="gender-btn" data-gender="Male"><i class="fa-solid fa-mars"></i> Male</button>
+                  <button class="gender-btn" data-gender="Unisex"><i class="fa-solid fa-venus-mars"></i> Unisex</button>
+              </div>
+          </div>
+
+          <!-- Main Content (Tabs) -->
+          <main class="content-area">
+              <!-- Tab: Catalog -->
+              <div id="tab-perfumes" class="tab-content active">
+                  <div id="listContainer" class="perfume-list">
+                      <!-- Cards will be injected here -->
+                  </div>
+                  <div id="emptyState" class="empty-state" style="display:none">
+                      <i class="fa-solid fa-wind"></i>
+                      <p>Nothing found</p>
+                  </div>
+              </div>
+
+              <!-- Tab: Favorites -->
+              <div id="tab-favorites" class="tab-content">
+                  <div id="favListContainer" class="perfume-list"></div>
+                  <div id="favEmptyState" class="empty-state">
+                      <i class="fa-regular fa-heart"></i>
+                      <p>Favorites list is empty</p>
+                  </div>
+              </div>
+
+              <!-- Tab: Dictionary -->
+              <div id="tab-dictionary" class="tab-content">
+                  <div class="dictionary-header">
+                      <h2>Notes Dictionary</h2>
+                      <p>Short description of perfume families</p>
+                </div>
+                <div id="dictionaryContainer" class="dictionary-grid"></div>
+              </div>
+          </main>
+
+          <!-- Bottom Navigation -->
+          <nav class="bottom-nav">
+              <button class="tab-btn active" data-tab="tab-perfumes">
+                  <i class="fa-solid fa-layer-group"></i>
+                  <span>Catalog</span>
+              </button>
+              <button class="tab-btn" data-tab="tab-favorites">
+                  <i class="fa-solid fa-heart"></i>
+                  <span>Favorites</span>
+              </button>
+              <button class="tab-btn" data-tab="tab-dictionary">
+                  <i class="fa                <i class="fa-solid fa-book-open"></i>
+                  <span>Notes</span>
+              </button>
+          </nav>
+      </div>
+
+      <!-- Modal: Details -->
+      <div id="scriptModal" class="modal-overlay">
+          <div class="modal-container">
+              <header class="modal-header">
+                  <h3 id="modalTitle">Brand Name</h3>
+                  <button id="closeModal" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+              </header>
+              <div id="modalBody" class="modal-body">
+                  <div id="modalBodyContent"></div>
+              </div>
+              <footer class="modal-footer">
+                  <button class="copy-script"><i class="fa-regular fa-copy"></i> Copy Script</button>
+                  <button id="openLinkBtn" class="link-btn"><i class="fa-solid fa-up-right-from-square"></i> Fragrantica</button>
+              </footer>
+          </div>
+      </div>
+
+      <!-- Modal: Share Favorites -->
+      <div id="shareModal" class="modal-overlay">
+          <div class="modal-container">
+              <header class="modal-header">
+                  <h3>Share List</h3>
+                  <button id="closeShareModal" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+              </header>
+              <div class="modal-body" id="shareModalBody"></div>
+              <footer class="modal-footer">
+                  <button id="copyShareListBtn" class="copy-script"><i class="fa-regular fa-copy"></i> Copy List</button>
+              </footer>
+          </div>
+      </div>
+
+      <script src="app.js?v=20260406_4"></script>
+      <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                              navigator.serviceWorker.register('sw.js?v=20260406_4')
+                                  .then(reg => console.log('SW registered'))
+                                  .catch(err => console.log('SW failed', err));
+});
+}
+    </script>
+      </body>
+      </html>
