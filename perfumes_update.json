@@ -1,0 +1,15 @@
+[
+    {
+          "brand": "Sample Brand",
+          "name": "Sample Perfume",
+          "pronunciation": "Sample Brand Sample Perfume",
+          "category": "Niche",
+          "direction": "Unisex",
+          "family": ["Floral"],
+          "tags": ["#sample", "#test"],
+          "top": "Top Notes",
+          "heart": "Heart Notes",
+          "base": "Base Notes",
+          "script": "This is a test fragrance for checking the update system."
+    }
+]
